@@ -11,8 +11,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ git_version.url }}">Version : {{ git_version.name }}</a>
                 </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
+                    {% if user.is_authenticated %}
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
@@ -27,10 +27,10 @@
                             <div role="separator" class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'logout' %}">Déconnexion</a>
                         </div>
-                    </li>
-                {% else %}
-                    <li class="navbar-text">Anonyme</li>
-                {% endif %}
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login' %}?next={% url 'map' %}">Login</a>
+                    {% endif %}
+                </li>
             </ul>
         </div>
     </div>
