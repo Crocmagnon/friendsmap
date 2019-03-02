@@ -25,7 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(b_w%!e9u!3q=d-u!$g6ntpzh-=4mo$gs#96as+^179vp6stui'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'prod') == 'dev'
+DEBUG = os.getenv('DJANGO_DEBUG', 'false').lower() == 'true'
 
 ALLOWED_HOSTS = [
     '.herokuapp.com',
@@ -158,4 +159,4 @@ APP = {
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGOUT_REDIRECT_URL = '/'
 
-django_heroku.settings(locals(), allowed_hosts=False, databases=not DEBUG)
+django_heroku.settings(locals(), allowed_hosts=False, databases=DJANGO_ENV == 'prod')
