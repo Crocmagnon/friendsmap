@@ -1,0 +1,13 @@
+{% extends 'map/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block h1 %}Delete your location{% endblock %}
+
+{% block content %}
+    <p>Are you sure you want to delete your location ? There is no turning back.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes I'm sure</button>
+        <a href="{% url 'map' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}
