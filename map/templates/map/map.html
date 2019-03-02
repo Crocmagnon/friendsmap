@@ -1,9 +1,6 @@
 {% extends 'map/base.html' %}
 {% load static %}
 
-{% block title %}Carte autour de {{ place }}{% endblock %}
-{% block h1 %}Carte autour de {{ place }}{% endblock %}
-
 {% block add-head %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
@@ -26,7 +23,7 @@
         }).addTo(map);
         {% for location in locations %}
             let marker = L.marker([{{ location.latitude_str }}, {{ location.longitude_str }}]).addTo(map);
-            marker.bindPopup("<strong>{{ location.friend.get_full_name }}</strong> from {{ location.start_date }} until {{ location.end_date }}").openPopup();
+            marker.bindPopup("<strong>{{ location.friend.get_full_name }}</strong> from {{ location.start_date }} until {{ location.end_date }}");
         {% endfor %}
     </script>
 {% endblock %}
