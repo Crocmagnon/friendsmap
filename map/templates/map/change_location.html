@@ -4,6 +4,10 @@
 {% block h1 %}Change your location{% endblock %}
 
 {% block content %}
+    <p>
+    You can find the GPS coordinates of your place with <a href="https://www.openstreetmap.org">OpenStreetMap</a>
+    (right click, show address, and the coordinates are displayed in the left panel).
+    </p>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
