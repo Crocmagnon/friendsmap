@@ -79,7 +79,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'map.context_processors.app_settings',
-                'map.context_processors.git_version',
             ],
         },
     },
