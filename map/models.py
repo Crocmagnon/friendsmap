@@ -13,7 +13,12 @@ class BaseModel(models.Model):
 
 
 class Friend(AbstractUser):
-    pass
+    def get_display_name(self):
+        display_name = super().get_full_name()
+        if not display_name:
+            display_name = self.username
+
+        return display_name
 
 
 class FriendLocation(BaseModel):
@@ -32,5 +37,14 @@ class FriendLocation(BaseModel):
         return str(self.longitude)
 
     def __str__(self):
-        return f'{self.friend.get_full_name()} from {self.start_date} to {self.end_date}'
+        return f'{self.friend.get_display_name()} from {self.start_date} to {self.end_date}'
+
+    @property
+    def safe_html(self):
+        html = f'<strong>{self.friend.get_display_name()}</strong>'
+        if self.start_date:
+            html += f' from {self.start_date}'
+        if self.end_date:
+            html += f' until {self.end_date}'
+        return html
 
