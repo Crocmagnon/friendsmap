@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'map/style.css' %}">
+
+    {% block add-head %}
+    {% endblock %}
+
+    <title>{{ app.site.name }} &centerdot; {% block title %}Home{% endblock %}</title>
+</head>
+<body>
+{#{% include 'map/navbar.html' %}#}
+
+<div class="container">
+    {% for message in messages %}
+        <div class="alert alert-dismissible alert-{{ message.tags }} fade show" role="alert">
+            {{ message|safe }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-12">
+            <h1>{% block h1 %}{% endblock %}</h1>
+        </div>
+    </div>
+    {% block quick_actions %}
+        {% if quick_actions %}
+            <div class="row">
+                <div class="col-12 d-none d-md-block"> {# Visible only on large screens #}
+                    {% for qa in quick_actions %}
+                        <a href="{{ qa.url }}" class="btn btn-{{ qa.category }}">
+                            {% if qa.icon %}<i class="{{ qa.icon }}"></i>{% endif %}
+                            {{ qa.display }}
+                        </a>
+                    {% endfor %}
+                </div>
+                <div class="col-12 d-md-none"> {# Visible only on small screens #}
+                    {% for qa in quick_actions %}
+                        <a href="{{ qa.url }}" class="btn btn-{{ qa.category }} btn-block">
+                            {% if qa.icon %}<i class="{{ qa.icon }}"></i>{% endif %}
+                            {{ qa.display }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+{% block js %}
+{% endblock %}
+</body>
+</html>
