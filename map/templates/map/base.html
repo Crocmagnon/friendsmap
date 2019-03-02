@@ -22,7 +22,7 @@
     <title>{{ app.site.name }} &centerdot; {% block title %}Home{% endblock %}</title>
 </head>
 <body>
-{#{% include 'map/navbar.html' %}#}
+{% include 'map/navbar.html' %}
 
 <div class="container">
     {% for message in messages %}
