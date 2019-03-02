@@ -64,6 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'map.context_processors.app_settings',
+                'map.context_processors.git_version',
             ],
         },
     },
@@ -122,4 +124,22 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'map.Friend'
+
+APP = {
+    'site': {
+        'name': "FriendsMap",
+        'url': os.environ.get('SITE_URL', "http://127.0.0.1:8000"),
+        'repository': {
+            'url': "https://github.com/Crocmagnon/friends_map",
+            'bugtracker': "https://github.com/Crocmagnon/friends_map/issues",
+        },
+        'licences': {
+            'source': {
+                'code': "GPL v3",
+                'url_license': "http://www.gnu.org/licenses/gpl-3.0.html",
+            }
+        },
+    },
+}
+
 
