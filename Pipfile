@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 django = "*"
-gitpython = "*"
 django-crispy-forms = "*"
 "psycopg2" = "*"
 gunicorn = "*"
