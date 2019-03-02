@@ -37,7 +37,12 @@ class FriendLocation(BaseModel):
         return str(self.longitude)
 
     def __str__(self):
-        return f'{self.friend.get_display_name()} from {self.start_date} to {self.end_date}'
+        result = f'{self.friend.get_display_name()}'
+        if self.start_date:
+            result += f' from {self.start_date}'
+        if self.end_date:
+            result += f' until {self.end_date}'
+        return result
 
     @property
     def safe_html(self):
