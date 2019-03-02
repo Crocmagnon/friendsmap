@@ -7,9 +7,9 @@ name = "pypi"
 django = "*"
 gitpython = "*"
 django-crispy-forms = "*"
-dj-database-url = "*"
 "psycopg2" = "*"
 gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 

@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import dj_database_url
+import django_heroku
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,7 +27,18 @@ SECRET_KEY = '(b_w%!e9u!3q=d-u!$g6ntpzh-=4mo$gs#96as+^179vp6stui'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.herokuapp.com',
+]
+
+HOST = os.environ.get('HOST')
+if HOST:
+    ALLOWED_HOSTS.append(HOST)
+
+if DEBUG:
+    ALLOWED_HOSTS += [
+        'localhost'
+    ]
 
 
 # Application definition
@@ -79,7 +90,12 @@ WSGI_APPLICATION = 'friends_map.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-DATABASES = {'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR}/db.sqlite3', conn_max_age=600)}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 # Password validation
@@ -143,3 +159,4 @@ APP = {
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGOUT_REDIRECT_URL = '/'
 
+django_heroku.settings(locals(), allowed_hosts=False, databases=not DEBUG)
