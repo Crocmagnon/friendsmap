@@ -1,7 +1,10 @@
 {% extends 'map/base.html' %}
 {% load crispy_forms_tags %}
 
+{% block h1 %}Login{% endblock %}
+
 {% block content %}
+    <p>Please authenticate before accessing the map.</p>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
