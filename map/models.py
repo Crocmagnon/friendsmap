@@ -22,6 +22,9 @@ class Friend(AbstractUser):
 
         return display_name
 
+    def __str__(self):
+        return self.get_display_name()
+
 
 class FriendLocation(BaseModel):
     latitude = CoordinateField()
