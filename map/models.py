@@ -13,7 +13,7 @@ class BaseModel(models.Model):
 
 
 class Friend(AbstractUser):
-    shares_location_to = models.ManyToManyField('Friend', related_name='is_shared_location_by')
+    shares_location_to = models.ManyToManyField('Friend', related_name='is_shared_location_by', blank=True)
 
     def get_display_name(self):
         display_name = super().get_full_name()

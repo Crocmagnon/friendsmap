@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from map import models
-from map.forms import LocationForm
+from map.forms import LocationForm, ProfileForm
 from map.mixins import QuickActionsMixin
 
 
@@ -99,12 +99,8 @@ class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'map/change_profile.html'
     success_url = reverse_lazy('map')
 
-    fields = [
-        'username',
-        'first_name',
-        'last_name',
-        'email',
-    ]
+    def get_form(self, form_class=None):
+        return ProfileForm(self.request, **self.get_form_kwargs())
 
     def get_object(self, queryset=None):
         return self.request.user
