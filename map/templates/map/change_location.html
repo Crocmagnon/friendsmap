@@ -4,10 +4,21 @@
 {% block h1 %}Change your location{% endblock %}
 
 {% block content %}
-    <p>
-    You can find the GPS coordinates of your place with <a href="https://www.openstreetmap.org">OpenStreetMap</a>
-    (right click, show address, and the coordinates are displayed in the left panel).
-    </p>
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Notice</h4>
+        <p>
+            You can find the GPS coordinates of your place with
+            <a class="alert-link" href="https://www.openstreetmap.org">OpenStreetMap</a>
+            (right click, show address, and the coordinates are displayed in the left panel).
+        </p>
+        <hr>
+        <p>
+            The precision of the GPS coordinates is at your own discretion. Please note that they will be stored
+            directly in the database in order to be displayed to other users.
+            If you want to protect your privacy, you are advised to choose a location at the center of a large city near
+            you.
+        </p>
+    </div>
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
