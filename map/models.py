@@ -24,8 +24,8 @@ class Friend(AbstractUser):
 class FriendLocation(BaseModel):
     latitude = CoordinateField()
     longitude = CoordinateField()
-    start_date = models.DateField('from', blank=True, null=True)
-    end_date = models.DateField('until', blank=True, null=True)
+    start_date = models.DateField('from', blank=True, null=True, help_text='Format : YYYY-MM-DD, example : 2018-05-31')
+    end_date = models.DateField('until', blank=True, null=True, help_text='Format : YYYY-MM-DD, example : 2018-05-31')
     friend = models.OneToOneField(Friend, on_delete=models.CASCADE, related_name='location')
 
     @property
