@@ -158,5 +158,6 @@ APP = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 
 django_heroku.settings(locals(), allowed_hosts=False, databases=DJANGO_ENV == 'prod')

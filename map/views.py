@@ -86,3 +86,38 @@ class DeleteLocationView(LoginRequiredMixin, generic.DeleteView):
     def get_success_url(self):
         messages.success(self.request, 'Your location has been successfully deleted')
         return super().get_success_url()
+
+
+class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
+    model = models.Friend
+    context_object_name = 'friend'
+    template_name = 'map/change_profile.html'
+    success_url = reverse_lazy('map')
+
+    fields = [
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+    ]
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        messages.success(self.request, 'Your profile has been successfully updated')
+        return super().get_success_url()
+
+
+class DeleteProfileView(LoginRequiredMixin, generic.DeleteView):
+    model = models.Friend
+    context_object_name = 'friend'
+    template_name = 'map/delete_profile.html'
+    success_url = reverse_lazy('map')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        messages.success(self.request, 'Your profile has been successfully and permanently deleted')
+        return super().get_success_url()

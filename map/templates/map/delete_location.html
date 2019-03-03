@@ -4,10 +4,16 @@
 {% block h1 %}Delete your location{% endblock %}
 
 {% block content %}
-    <p>Are you sure you want to delete your location ? There is no turning back.</p>
+    <div class="alert alert-warning">
+        <h4 class="alert-heading">Are you sure?</h4>
+        <p>
+            Are you sure you want to delete your location ? This can't be undone,
+            though you will be able to add it again in the future.
+        </p>
+    </div>
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Yes I'm sure</button>
-        <a href="{% url 'map' %}" class="btn btn-secondary">Cancel</a>
+        <a href="{% url 'map' %}" class="btn btn-secondary">No, cancel</a>
     </form>
 {% endblock %}

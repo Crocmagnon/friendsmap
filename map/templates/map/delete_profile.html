@@ -1,0 +1,19 @@
+{% extends 'map/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block h1 %}Delete your location{% endblock %}
+
+{% block content %}
+    <div class="alert alert-danger">
+        <h4 class="alert-heading">Are you sure?</h4>
+        <p>
+            Are you sure you want to delete your profile ? You will permanently lose access to this service.
+            This can't be undone.
+        </p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes I'm sure</button>
+        <a href="{% url 'map' %}" class="btn btn-secondary">No, cancel</a>
+    </form>
+{% endblock %}
