@@ -144,8 +144,8 @@ APP = {
         'name': "FriendsMap",
         'url': os.environ.get('SITE_URL', "http://127.0.0.1:8000"),
         'repository': {
-            'url': "https://github.com/Crocmagnon/friends_map",
-            'bugtracker': "https://github.com/Crocmagnon/friends_map/issues",
+            'url': "https://github.com/Crocmagnon/friendsmap",
+            'bugtracker': "https://github.com/Crocmagnon/friendsmap/issues",
         },
         'licences': {
             'source': {
