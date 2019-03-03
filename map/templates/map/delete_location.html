@@ -6,10 +6,10 @@
 {% block content %}
     <div class="alert alert-warning">
         <h4 class="alert-heading">Are you sure?</h4>
-        <p>
+        <div>
             Are you sure you want to delete your location ? This can't be undone,
             though you will be able to add it again in the future.
-        </p>
+        </div>
     </div>
     <form method="post">
         {% csrf_token %}
