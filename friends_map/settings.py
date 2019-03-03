@@ -149,8 +149,8 @@ APP = {
         },
         'licences': {
             'source': {
-                'code': "GPL v3",
-                'url_license': "http://www.gnu.org/licenses/gpl-3.0.html",
+                'code': "MIT",
+                'url_license': "https://opensource.org/licenses/MIT",
             }
         },
     },
