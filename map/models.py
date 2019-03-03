@@ -53,3 +53,8 @@ class FriendLocation(BaseModel):
             html += f' until {self.end_date}'
         return html
 
+
+class LocationSharingGroup(models.Model):
+    name = models.CharField(max_length=250)
+    friends = models.ManyToManyField(Friend, related_name='location_sharing_groups', blank=True)
+

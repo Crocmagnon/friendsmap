@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin import register
 from django.contrib.auth.admin import UserAdmin
-from .models import Friend, FriendLocation
+
+from .models import Friend, FriendLocation, LocationSharingGroup
 
 admin.site.register(Friend, UserAdmin)
 
@@ -12,4 +13,11 @@ class FriendLocationAdmin(admin.ModelAdmin):
         (None, {'fields': ('friend',)}),
         ('Place', {'fields': ('latitude', 'longitude')}),
         ('Dates', {'fields': ('start_date', 'end_date')}),
+    ]
+
+
+@register(LocationSharingGroup)
+class LocationSharingGroupAdmin(admin.ModelAdmin):
+    list_display = [
+        'name',
     ]

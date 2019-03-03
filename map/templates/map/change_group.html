@@ -1,0 +1,19 @@
+{% extends 'map/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}Create a group{% endblock %}
+{% block h1 %}Create a group{% endblock %}
+
+{% block content %}
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Notice</h4>
+        <div>
+            All members in this group can see your location.
+        </div>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+{% endblock %}

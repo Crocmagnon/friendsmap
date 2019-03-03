@@ -15,7 +15,7 @@ class MapView(LoginRequiredMixin, QuickActionsMixin, generic.ListView):
 
     def get_quick_actions(self):
         if hasattr(self.request.user, 'location'):
-            return [{
+            actions = [{
                 'url': reverse_lazy('change-location'),
                 'category': 'primary',
                 'display': f'Change your location'
@@ -25,11 +25,19 @@ class MapView(LoginRequiredMixin, QuickActionsMixin, generic.ListView):
                 'display': f'Delete your location'
             }]
         else:
-            return [{
+            actions = [{
                 'url': reverse_lazy('add-location'),
                 'category': 'primary',
                 'display': f'Add your location'
             }]
+
+        actions.append({
+            'url': reverse_lazy('manage-groups'),
+            'category': 'secondary',
+            'display': f'Manage your groups'
+        })
+
+        return actions
 
 
 class EditLocationView(LoginRequiredMixin, generic.UpdateView):
@@ -120,4 +128,51 @@ class DeleteProfileView(LoginRequiredMixin, generic.DeleteView):
 
     def get_success_url(self):
         messages.success(self.request, 'Your profile has been successfully and permanently deleted')
+        return super().get_success_url()
+
+
+class ManageGroupsView(LoginRequiredMixin, QuickActionsMixin, generic.ListView):
+    model = models.LocationSharingGroup
+    context_object_name = 'groups'
+    template_name = 'map/list_groups.html'
+
+    def get_queryset(self):
+        return self.request.user.location_sharing_groups.all()
+
+    def get_quick_actions(self):
+        return [{
+            'url': reverse_lazy('add-group'),
+            'category': 'primary',
+            'display': 'Create a group'
+        }]
+
+
+class CreateGroupView(LoginRequiredMixin, QuickActionsMixin, generic.CreateView):
+    model = models.LocationSharingGroup
+    context_object_name = 'group'
+    template_name = 'map/change_group.html'
+    success_url = reverse_lazy('manage-groups')
+
+    fields = [
+        'name'
+    ]
+
+    def get_success_url(self):
+        self.object.friends.add(self.request.user)
+        messages.success(self.request, 'The group has been successfully created')
+        return super().get_success_url()
+
+
+class LeaveGroupView(LoginRequiredMixin, generic.UpdateView):
+    model = models.LocationSharingGroup
+    context_object_name = 'group'
+    template_name = 'map/leave_group.html'
+    fields = []
+    success_url = reverse_lazy('manage-groups')
+
+    def get_success_url(self):
+        self.object.friends.remove(self.request.user)
+        if self.object.friends.count() == 0:
+            self.object.delete()
+        messages.success(self.request, 'You successfully left the group')
         return super().get_success_url()
