@@ -1,10 +1,10 @@
-{% extends 'map/base.html' %}
+{% extends 'map/base_change.html' %}
 {% load crispy_forms_filters %}
 
 {% block title %}Change your profile{% endblock %}
 {% block h1 %}Change your profile{% endblock %}
 
-{% block content %}
+{% block notice %}
     <div class="alert alert-info">
         <h4 class="alert-heading">Notice</h4>
         <div>
@@ -23,11 +23,9 @@
             your data if you change your mind.
         </div>
     </div>
-    <form method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="{% url 'password_change' %}" class="btn btn-secondary">Change your password</a>
-        <a href="{% url 'delete-profile' %}" class="btn btn-warning">Permanently delete your profile</a>
-    </form>
+{% endblock %}
+
+{% block form-buttons %}
+    <a href="{% url 'password_change' %}" class="btn btn-secondary">Change your password</a>
+    <a href="{% url 'delete-profile' %}" class="btn btn-warning">Permanently delete your profile</a>
 {% endblock %}

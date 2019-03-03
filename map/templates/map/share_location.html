@@ -1,0 +1,15 @@
+{% extends 'map/base_change.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}Share your location{% endblock %}
+{% block h1 %}Share your location{% endblock %}
+
+{% block notice %}
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Notice</h4>
+        <div>
+            Select here who you want to share your location to.
+            Only selected users will be able to see your marker on the map.
+        </div>
+    </div>
+{% endblock %}

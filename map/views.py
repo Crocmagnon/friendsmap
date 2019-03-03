@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from map import models
-from map.forms import LocationForm, ProfileForm
+from map.forms import LocationForm, LocationSharingForm
 from map.mixins import QuickActionsMixin
 
 
@@ -34,14 +34,20 @@ class MapView(LoginRequiredMixin, QuickActionsMixin, generic.DetailView):
                 'display': f'Add your location'
             }]
 
+        actions.append({
+            'url': reverse_lazy('share-location'),
+            'category': 'secondary',
+            'display': 'Share your location'
+        })
+
         return actions
 
 
-class EditLocationView(LoginRequiredMixin, generic.UpdateView):
+class EditLocationView(LoginRequiredMixin, QuickActionsMixin, generic.UpdateView):
     model = models.FriendLocation
     context_object_name = 'location'
     template_name = 'map/change_location.html'
-
+    success_url = reverse_lazy('map')
     fields = [
         'latitude',
         'longitude',
@@ -49,7 +55,12 @@ class EditLocationView(LoginRequiredMixin, generic.UpdateView):
         'end_date',
     ]
 
-    success_url = reverse_lazy('map')
+    def get_quick_actions(self):
+        return [{
+            'url': reverse_lazy('map'),
+            'category': 'secondary',
+            'display': 'Back to map'
+        }]
 
     def get_object(self, queryset=None):
         return self.request.user.location
@@ -59,11 +70,18 @@ class EditLocationView(LoginRequiredMixin, generic.UpdateView):
         return super().get_success_url()
 
 
-class AddLocationView(LoginRequiredMixin, generic.CreateView):
+class AddLocationView(LoginRequiredMixin, QuickActionsMixin, generic.CreateView):
     model = models.FriendLocation
     context_object_name = 'location'
     template_name = 'map/change_location.html'
     success_url = reverse_lazy('map')
+
+    def get_quick_actions(self):
+        return [{
+            'url': reverse_lazy('map'),
+            'category': 'secondary',
+            'display': 'Back to map'
+        }]
 
     def get_initial(self):
         initial = super().get_initial()
@@ -93,14 +111,24 @@ class DeleteLocationView(LoginRequiredMixin, generic.DeleteView):
         return super().get_success_url()
 
 
-class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
+class UpdateProfileView(LoginRequiredMixin, QuickActionsMixin, generic.UpdateView):
     model = models.Friend
     context_object_name = 'friend'
     template_name = 'map/change_profile.html'
     success_url = reverse_lazy('map')
+    fields = [
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+    ]
 
-    def get_form(self, form_class=None):
-        return ProfileForm(self.request, **self.get_form_kwargs())
+    def get_quick_actions(self):
+        return [{
+            'url': reverse_lazy('map'),
+            'category': 'secondary',
+            'display': 'Back to map'
+        }]
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -108,6 +136,26 @@ class UpdateProfileView(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         messages.success(self.request, 'Your profile has been successfully updated')
         return super().get_success_url()
+
+
+class LocationSharingView(LoginRequiredMixin, QuickActionsMixin, generic.UpdateView):
+    model = models.Friend
+    context_object_name = 'friend'
+    template_name = 'map/share_location.html'
+    success_url = reverse_lazy('map')
+
+    def get_quick_actions(self):
+        return [{
+            'url': reverse_lazy('map'),
+            'category': 'secondary',
+            'display': 'Back to map'
+        }]
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form(self, form_class=None):
+        return LocationSharingForm(self.request, **self.get_form_kwargs())
 
 
 class DeleteProfileView(LoginRequiredMixin, generic.DeleteView):

@@ -23,14 +23,10 @@ class LocationForm(forms.ModelForm):
         return self.request.user
 
 
-class ProfileForm(forms.ModelForm):
+class LocationSharingForm(forms.ModelForm):
     class Meta:
         model = Friend
         fields = [
-            'username',
-            'first_name',
-            'last_name',
-            'email',
             'shares_location_to',
         ]
 
@@ -38,3 +34,4 @@ class ProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.request = request
         self.fields['shares_location_to'].queryset = Friend.objects.exclude(pk=request.user.pk)
+        self.fields['shares_location_to'].label = 'Share location to'
