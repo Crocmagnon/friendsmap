@@ -13,30 +13,14 @@ class BaseModel(models.Model):
 
 
 class Friend(AbstractUser):
+    shares_location_to = models.ManyToManyField('Friend', related_name='is_shared_location_by')
+
     def get_display_name(self):
         display_name = super().get_full_name()
         if not display_name:
             display_name = self.username
 
         return display_name
-
-    @property
-    def _relatives_set(self):
-        relative_set = set()
-        for group in self.location_sharing_groups.all():
-            for relative in group.friends.all():
-                relative_set.add(relative)
-        return relative_set
-
-    @property
-    def relatives(self):
-        return list(self._relatives_set)
-
-    @property
-    def relatives_with_self(self):
-        relatives = self._relatives_set
-        relatives.add(self)
-        return list(relatives)
 
 
 class FriendLocation(BaseModel):
@@ -70,9 +54,3 @@ class FriendLocation(BaseModel):
         if self.end_date:
             html += f' until {self.end_date}'
         return html
-
-
-class LocationSharingGroup(models.Model):
-    name = models.CharField(max_length=250)
-    friends = models.ManyToManyField(Friend, related_name='location_sharing_groups', blank=True)
-
