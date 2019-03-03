@@ -24,9 +24,11 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         let marker = null;
-        {% for location in locations %}
-            marker = L.marker([{{ location.latitude_str }}, {{ location.longitude_str }}]).addTo(map);
-            marker.bindPopup("{{ location.safe_html|safe }}");
+        {% for relative in friend.relatives_with_self %}
+            {% with relative.location as location %}
+                marker = L.marker([{{ location.latitude_str }}, {{ location.longitude_str }}]).addTo(map);
+                marker.bindPopup("{{ location.safe_html|safe }}");
+            {% endwith %}
         {% endfor %}
     </script>
 {% endblock %}

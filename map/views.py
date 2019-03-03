@@ -8,10 +8,13 @@ from map.forms import LocationForm
 from map.mixins import QuickActionsMixin
 
 
-class MapView(LoginRequiredMixin, QuickActionsMixin, generic.ListView):
-    model = models.FriendLocation
-    context_object_name = 'locations'
+class MapView(LoginRequiredMixin, QuickActionsMixin, generic.DetailView):
+    model = models.Friend
+    context_object_name = 'friend'
     template_name = 'map/map.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
     def get_quick_actions(self):
         if hasattr(self.request.user, 'location'):

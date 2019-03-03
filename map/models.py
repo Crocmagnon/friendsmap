@@ -20,6 +20,24 @@ class Friend(AbstractUser):
 
         return display_name
 
+    @property
+    def _relatives_set(self):
+        relative_set = set()
+        for group in self.location_sharing_groups.all():
+            for relative in group.friends.all():
+                relative_set.add(relative)
+        return relative_set
+
+    @property
+    def relatives(self):
+        return list(self._relatives_set)
+
+    @property
+    def relatives_with_self(self):
+        relatives = self._relatives_set
+        relatives.add(self)
+        return list(relatives)
+
 
 class FriendLocation(BaseModel):
     latitude = CoordinateField()
