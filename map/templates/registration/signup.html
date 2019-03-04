@@ -1,0 +1,48 @@
+{% extends 'map/change_profile.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}Create your profile{% endblock %}
+{% block h1 %}Create your profile{% endblock %}
+
+{% block notice %}
+    {% if registration_disallowed %}
+        <div class="alert alert-warning">
+            <h4 class="alert-heading">Notice</h4>
+            <div>
+                Registration is currently not allowed. Thanks for your interest, please come back later.
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <h4 class="alert-heading">Notice</h4>
+            <div>
+                The only required field is your username, which you can customize nearly freely.
+                If you choose to add your first and last name, they will be displayed on the map and on the right of the
+                navbar, at the top. If you don't, your username will be displayed instead.
+                <br>
+                Your email address will only ever be used to communicate account-related information. It will never be
+                sold
+                or used to spam you. You can choose not to communicate your email address.
+            </div>
+            <hr>
+            <div>
+                You can also permanently delete your profile using the button at the bottom of this page.
+                This will prompt you for confirmation about <strong>permanently</strong> and
+                <strong>immediately</strong>
+                deleting your profile, meaning that we will not be able to retrieve
+                your data if you change your mind.
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block form %}
+    {% if not registration_disallowed %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            {% block form-buttons %}
+                <button type="submit" class="btn btn-primary">Save</button>
+            {% endblock %}
+        </form>
+    {% endif %}
+{% endblock %}

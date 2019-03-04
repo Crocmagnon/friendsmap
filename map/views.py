@@ -1,11 +1,13 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
 from map import models
-from map.forms import LocationForm, LocationSharingForm
+from map.forms import LocationForm, LocationSharingForm, FriendCreationForm
 from map.mixins import QuickActionsMixin
+from map.models import Friend
 
 
 class MapView(LoginRequiredMixin, QuickActionsMixin, generic.DetailView):
@@ -108,6 +110,29 @@ class DeleteLocationView(LoginRequiredMixin, generic.DeleteView):
 
     def get_success_url(self):
         messages.success(self.request, 'Your location has been successfully deleted')
+        return super().get_success_url()
+
+
+class SignupView(generic.CreateView):
+    model = models.Friend
+    template_name = 'registration/signup.html'
+    success_url = reverse_lazy('login')
+    form_class = FriendCreationForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['registration_disallowed'] = Friend.objects.count() >= settings.USER_THRESHOLD
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if Friend.objects.count() >= settings.USER_THRESHOLD:
+            raise Exception('No more users allowed')
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        self.object.is_active = False
+        self.object.save()
+        messages.success(self.request, 'Your profile has been successfully created, wait for approval.')
         return super().get_success_url()
 
 

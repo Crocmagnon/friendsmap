@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 from map.models import FriendLocation, Friend
 
@@ -35,3 +36,10 @@ class LocationSharingForm(forms.ModelForm):
         self.request = request
         self.fields['shares_location_to'].queryset = Friend.objects.exclude(pk=request.user.pk)
         self.fields['shares_location_to'].label = 'Share location to'
+
+
+class FriendCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = Friend
+        fields = UserCreationForm.Meta.fields
+
