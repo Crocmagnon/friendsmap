@@ -37,6 +37,9 @@ class LocationSharingForm(forms.ModelForm):
         self.fields['shares_location_to'].queryset = Friend.objects.exclude(pk=request.user.pk)
         self.fields['shares_location_to'].label = 'Share location to'
         self.fields['shares_location_to'].help_text = 'Hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd> to select multiple users'
+        self.fields['shares_location_to'].widget.attrs = {
+            'size': 10,
+        }
 
 
 class FriendCreationForm(UserCreationForm):
