@@ -38,7 +38,10 @@ class LocationSharingForm(forms.ModelForm):
         self.fields['shares_location_to'].label = 'Share location to'
         self.fields['shares_location_to'].help_text = 'Hold <kbd>Ctrl</kbd> or <kbd>Cmd</kbd> to select multiple users'
         self.fields['shares_location_to'].widget.attrs = {
-            'size': 10,
+            'data-size': 20,
+            'class': 'selectpicker',
+            'data-live-search': 'true',
+            'data-actions-box': 'true',
         }
 
 
