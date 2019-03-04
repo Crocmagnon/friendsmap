@@ -41,5 +41,9 @@ class LocationSharingForm(forms.ModelForm):
 class FriendCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Friend
-        fields = UserCreationForm.Meta.fields
+        fields = UserCreationForm.Meta.fields + (
+            'first_name',
+            'last_name',
+            'email',
+        )
 
