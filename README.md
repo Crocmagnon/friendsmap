@@ -22,3 +22,7 @@ There is still work to do though :
 - Currently, the administrator can see everyone's location.
 This is not a desirable thing but I have no idea how to improve this.
 If you do, please let me know or propose a PR !
+
+## Licenses
+- The favicon is from Font Awesome under the Creative Commons Attribution 4.0 International license. It has
+been transformed from svg to png. See [the licenses](https://fontawesome.com/license/free).
