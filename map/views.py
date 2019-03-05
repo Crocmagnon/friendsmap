@@ -24,7 +24,7 @@ class MapView(LoginRequiredMixin, QuickActionsMixin, generic.DetailView):
                 'url': reverse_lazy('change-location'),
                 'category': 'primary',
                 'display': f'Change your location',
-                'icon': 'fas fa-map-marked-alt',
+                'icon': 'fas fa-map-marker-alt',
             }, {
                 'url': reverse_lazy('delete-location'),
                 'category': 'warning',
@@ -36,7 +36,7 @@ class MapView(LoginRequiredMixin, QuickActionsMixin, generic.DetailView):
                 'url': reverse_lazy('add-location'),
                 'category': 'primary',
                 'display': f'Add your location',
-                'icon': 'fas fa-map-marked-alt',
+                'icon': 'fas fa-map-marker-alt',
             }]
 
         actions.append({
