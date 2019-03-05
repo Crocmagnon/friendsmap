@@ -45,13 +45,13 @@ if DEBUG:
 # Application definition
 
 INSTALLED_APPS = [
+    'map',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'map',
     'crispy_forms',
 ]
 
