@@ -14,7 +14,7 @@
     </div>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Yes I'm sure</button>
-        <a href="{% url 'map' %}" class="btn btn-secondary">No, cancel</a>
+        <button type="submit" class="btn btn-danger"><i class="fas fa-eraser"></i> Yes I'm sure</button>
+        <a href="{% url 'map' %}" class="btn btn-secondary"><i class="fas fa-chevron-circle-left"></i> No, cancel</a>
     </form>
 {% endblock %}

@@ -23,23 +23,27 @@ class MapView(LoginRequiredMixin, QuickActionsMixin, generic.DetailView):
             actions = [{
                 'url': reverse_lazy('change-location'),
                 'category': 'primary',
-                'display': f'Change your location'
+                'display': f'Change your location',
+                'icon': 'fas fa-map-marked-alt',
             }, {
                 'url': reverse_lazy('delete-location'),
                 'category': 'warning',
-                'display': f'Delete your location'
+                'display': f'Delete your location',
+                'icon': 'fas fa-eraser',
             }]
         else:
             actions = [{
                 'url': reverse_lazy('add-location'),
                 'category': 'primary',
-                'display': f'Add your location'
+                'display': f'Add your location',
+                'icon': 'fas fa-map-marked-alt',
             }]
 
         actions.append({
             'url': reverse_lazy('share-location'),
             'category': 'secondary',
-            'display': 'Share your location'
+            'display': 'Share your location',
+            'icon': 'fas fa-share-alt'
         })
 
         return actions
@@ -61,7 +65,8 @@ class EditLocationView(LoginRequiredMixin, QuickActionsMixin, generic.UpdateView
         return [{
             'url': reverse_lazy('map'),
             'category': 'secondary',
-            'display': 'Back to map'
+            'display': 'Back to map',
+            'icon': 'fas fa-chevron-circle-left',
         }]
 
     def get_object(self, queryset=None):
@@ -82,7 +87,8 @@ class AddLocationView(LoginRequiredMixin, QuickActionsMixin, generic.CreateView)
         return [{
             'url': reverse_lazy('map'),
             'category': 'secondary',
-            'display': 'Back to map'
+            'display': 'Back to map',
+            'icon': 'fas fa-chevron-circle-left',
         }]
 
     def get_initial(self):
@@ -152,7 +158,8 @@ class UpdateProfileView(LoginRequiredMixin, QuickActionsMixin, generic.UpdateVie
         return [{
             'url': reverse_lazy('map'),
             'category': 'secondary',
-            'display': 'Back to map'
+            'display': 'Back to map',
+            'icon': 'fas fa-chevron-circle-left',
         }]
 
     def get_object(self, queryset=None):
@@ -173,7 +180,8 @@ class LocationSharingView(LoginRequiredMixin, QuickActionsMixin, generic.UpdateV
         return [{
             'url': reverse_lazy('map'),
             'category': 'secondary',
-            'display': 'Back to map'
+            'display': 'Back to map',
+            'icon': 'fas fa-chevron-circle-left',
         }]
 
     def get_object(self, queryset=None):
