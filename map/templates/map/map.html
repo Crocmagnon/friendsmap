@@ -10,6 +10,15 @@
 {% block title %}Map{% endblock %}
 
 {% block content %}
+    {% if not friend.shares_location_to.all %}
+        <div class="alert alert-warning">
+            <h4 class="alert-heading">You're not sharing</h4>
+            <div>
+                You're not sharing your location with anyone.<br>
+                {{ friend.is_shared_location_by.count }} user(s) are sharing their location with you.
+            </div>
+        </div>
+    {% endif %}
     <div id="map"></div>
 {% endblock %}
 
