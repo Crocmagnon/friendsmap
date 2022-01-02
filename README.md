@@ -26,3 +26,6 @@ If you do, please let me know or propose a PR !
 ## Licenses
 - The favicon is from Font Awesome under the Creative Commons Attribution 4.0 International license. It has
 been transformed from svg to png. See [the licenses](https://fontawesome.com/license/free).
+
+# Reuse
+If you do reuse my work, please consider linking back to this repository 🙂
